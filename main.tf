@@ -81,18 +81,6 @@ resource "azurerm_public_ip" "wan-public-ip" {
   tags = var.tags
 }
 
-# resource "azurerm_public_ip" "wan-public-ip-secondary" {
-#   allocation_method   = "Static"
-#   location            = var.location
-#   name                = "${local.resource_name_prefix}-wanPublicIPSecondary"
-#   resource_group_name = local.resource_group_name
-#   sku                 = "Standard"
-#   depends_on = [
-#     azurerm_resource_group.azure-rg
-#   ]
-#   tags = var.tags
-# }
-
 # Create Network Interfaces
 resource "azurerm_network_interface" "wan-nic" {
   ip_forwarding_enabled          = true
