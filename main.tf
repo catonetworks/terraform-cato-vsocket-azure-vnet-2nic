@@ -303,8 +303,7 @@ resource "cato_socket_site" "azure-site" {
   site_type     = var.site_type
 }
 
-
-# Create Primary Vsocket Virtual Machine
+# Create Vsocket Virtual Machine
 resource "azurerm_linux_virtual_machine" "vsocket" {
   location              = var.location
   name                  = local.vsocket_name_local
