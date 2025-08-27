@@ -1,23 +1,5 @@
 
 ## Cato Provider Variables
-variable "token" {
-  description = "API token used to authenticate with the Cato Networks API."
-  sensitive   = true
-  type        = string
-}
-
-variable "account_id" {
-  description = "Account ID used for the Cato Networks integration."
-  type        = number
-  default     = null
-}
-
-variable "baseurl" {
-  description = "Base URL for the Cato Networks API."
-  type        = string
-  default     = "https://api.catonetworks.com/api/v1/graphql2"
-}
-
 variable "site_name" {
   description = "Name of the vsocket site"
   type        = string
@@ -101,12 +83,6 @@ EOT
 variable "vnet_name" {
   description = "VNET Name required if you want to deploy into existing VNET"
   type        = string
-}
-
-variable "azure_subscription_id" {
-  description = "The Azure Subscription ID where the resources will be created. Example: 00000000-0000-0000-0000-000000000000"
-  type        = string
-  sensitive   = true
 }
 
 variable "location" {

@@ -36,14 +36,8 @@ variable "baseurl" {}
 variable "token" {}
 variable "account_id" {}
 
-
-
 module "vsocket-azure-vnet-2nic" {
   source                = "catonetworks/terraform-cato-vsocket-azure-vnet-2nic"
-  token                 = var.token
-  account_id            = var.account_id
-  azure_subscription_id = var.azure_subscription_id
-  baseurl               = var.baseurl
   location              = "West Europe"
   vnet_name             = "test-vnet" # Required for both creating or using existing VNET
   resource_group_name   = "test-rg"
@@ -121,14 +115,13 @@ Apache 2 Licensed. See [LICENSE](https://github.com/catonetworks/terraform-cato-
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 4.33.0 |
 | <a name="requirement_cato"></a> [cato](#requirement\_cato) | >= 0.0.38 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 4.33.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
 | <a name="provider_cato"></a> [cato](#provider\_cato) | >= 0.0.38 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 | <a name="provider_time"></a> [time](#provider\_time) | n/a |
@@ -183,10 +176,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | Account ID used for the Cato Networks integration. | `number` | `null` | no |
 | <a name="input_availability_set_id"></a> [availability\_set\_id](#input\_availability\_set\_id) | Availability set ID | `string` | `null` | no |
-| <a name="input_azure_subscription_id"></a> [azure\_subscription\_id](#input\_azure\_subscription\_id) | The Azure Subscription ID where the resources will be created. Example: 00000000-0000-0000-0000-000000000000 | `string` | n/a | yes |
-| <a name="input_baseurl"></a> [baseurl](#input\_baseurl) | Base URL for the Cato Networks API. | `string` | `"https://api.catonetworks.com/api/v1/graphql2"` | no |
 | <a name="input_commands"></a> [commands](#input\_commands) | n/a | `list(string)` | <pre>[<br/>  "rm /cato/deviceid.txt",<br/>  "rm /cato/socket/configuration/socket_registration.json",<br/>  "nohup /cato/socket/run_socket_daemon.sh &"<br/>]</pre> | no |
 | <a name="input_create_resource_group"></a> [create\_resource\_group](#input\_create\_resource\_group) | Resource group creation true will create and false will use exsiting | `bool` | n/a | yes |
 | <a name="input_create_vnet"></a> [create\_vnet](#input\_create\_vnet) | Whether or not to create the Vnet, or use existing Vnet | `bool` | `false` | no |
@@ -210,7 +200,6 @@ No modules.
 | <a name="input_subnet_range_lan"></a> [subnet\_range\_lan](#input\_subnet\_range\_lan) | Choose a range within the VPC to use as the Private/LAN subnet. This subnet will host the target LAN interface of the vSocket so resources in the VPC (or AWS Region) can route to the Cato Cloud.<br/>    The minimum subnet length to support High Availability is /29.<br/>    The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X | `string` | `null` | no |
 | <a name="input_subnet_range_wan"></a> [subnet\_range\_wan](#input\_subnet\_range\_wan) | Choose a range within the VPC to use as the Public/WAN subnet. This subnet will be used to access the public internet and securely tunnel to the Cato Cloud.<br/>    The minimum subnet length to support High Availability is /28.<br/>    The accepted input format is Standard CIDR Notation, e.g. X.X.X.X/X | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A Map of Strings to describe infrastructure | `map(string)` | `{}` | no |
-| <a name="input_token"></a> [token](#input\_token) | API token used to authenticate with the Cato Networks API. | `string` | n/a | yes |
 | <a name="input_upstream_bandwidth"></a> [upstream\_bandwidth](#input\_upstream\_bandwidth) | Sockets upstream interface WAN Bandwidth in Mbps | `string` | `"null"` | no |
 | <a name="input_vm_image_config"></a> [vm\_image\_config](#input\_vm\_image\_config) | Configuration for the Marketplace image, including plan and source image reference. | <pre>object({<br/>    publisher = string<br/>    offer     = string<br/>    product   = string<br/>    sku       = string<br/>    version   = string<br/>  })</pre> | <pre>{<br/>  "offer": "cato_socket",<br/>  "product": "cato_socket",<br/>  "publisher": "catonetworks",<br/>  "sku": "public-cato-socket",<br/>  "version": "23.0.19605"<br/>}</pre> | no |
 | <a name="input_vm_os_disk_config"></a> [vm\_os\_disk\_config](#input\_vm\_os\_disk\_config) | Configuration for the Virtual Machine's OS disk. | <pre>object({<br/>    name_suffix          = string<br/>    caching              = string<br/>    storage_account_type = string<br/>    disk_size_gb         = number<br/>  })</pre> | <pre>{<br/>  "caching": "ReadWrite",<br/>  "disk_size_gb": 8,<br/>  "name_suffix": "vSocket-disk",<br/>  "storage_account_type": "Standard_LRS"<br/>}</pre> | no |
