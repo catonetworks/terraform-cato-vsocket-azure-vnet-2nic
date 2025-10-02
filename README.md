@@ -37,7 +37,7 @@ variable "token" {}
 variable "account_id" {}
 
 module "vsocket-azure-vnet-2nic" {
-  source                = "catonetworks/terraform-cato-vsocket-azure-vnet-2nic"
+  source                = "catonetworks/vsocket-azure-vnet-2nic/cato"
   location              = "West Europe"
   vnet_name             = "test-vnet" # Required for both creating or using existing VNET
   resource_group_name   = "test-rg"
